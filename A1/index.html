@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TV Shows by Genre Over Time</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        font-family: Arial, sans-serif;
+      }
+
+      .tooltip {
+        position: absolute;
+        padding: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid #ddd;
+        pointer-events: none;
+        font-size: 12px;
+      }
+
+      .chart-title {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+        color: #fff;
+      }
+
+      .slider-container {
+        width: 860px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      .parameter-value {
+        font-family: Arial, sans-serif;
+        margin-bottom: 10px;
+      }
+
+      #chart-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      #pie-chart {
+        width: 600px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="chart-title">EVOLUTION OF TELEVISION MEDIA</h1>
+    <div class="slider-container">
+      <div id="year-slider"></div>
+    </div>
+    <div id="chart-container">
+      <div id="pie-chart"></div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
