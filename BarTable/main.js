@@ -17,7 +17,15 @@ const tooltip = d3
   .select("body")
   .append("div")
   .attr("class", "tooltip")
-  .style("opacity", 0);
+  .style("opacity", 0)
+  .style("position", "absolute")
+  .style("background", "rgba(0, 0, 0, 0.7)")
+  .style("color", "#fff")
+  .style("padding", "8px")
+  .style("border-radius", "5px")
+  .style("pointer-events", "none")
+  .style("font-size", "12px")
+  .style("box-shadow", "0 2px 6px rgba(0, 0, 0, 0.15)");
 
 // Define the year range
 const minYear = 1990;
@@ -110,13 +118,18 @@ d3.csv("specific_networks.csv").then((data) => {
       .on("mouseover", function (event, d) {
         tooltip.transition().duration(200).style("opacity", 0.9);
         tooltip
-          .html(`<strong>Network:</strong> ${d.network}<br/><strong>Count:</strong> ${d.count}`)
-          .style("left", event.pageX + 10 + "px")
-          .style("top", event.pageY - 28 + "px");
+          .html(`<strong>Network:</strong> ${d.network}<br/><strong>Count:</strong> ${Math.round(d.count)}`)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 28) + "px");
         d3.select(this).style("opacity", 0.7);
 
         // Update the table with the most popular genre and show
         updateTable(d.network);
+      })
+      .on("mousemove", function (event) {
+        tooltip
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY - 28) + "px");
       })
       .on("mouseout", function () {
         tooltip.transition().duration(500).style("opacity", 0);
