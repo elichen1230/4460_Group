@@ -134,7 +134,7 @@ d3.csv("specific_networks.csv").then((data) => {
       (v) => v.length,
       (genre) => genre
     );
-  
+
     const topGenres = genreCounts
       .filter(([genre]) => genre !== "")
       .sort((a, b) => b[1] - a[1])
@@ -147,76 +147,126 @@ d3.csv("specific_networks.csv").then((data) => {
           .map((show) => ({ name: show.name }));
         return { name: genre, children: shows };
       });
-  
+
     const treeData = {
       name: "Genres",
       children: topGenres,
     };
-  
+
     const root = d3.hierarchy(treeData);
     const treeLayout = d3
       .tree()
-      .size([2 * Math.PI, radius - 100]) // Reduced radius to keep visualization within bounds
+      .size([2 * Math.PI, radius - 50]) // Increased radius for longer edges
       .separation((a, b) => (a.parent === b.parent ? 0.8 : 1.5)); // Adjust separation for clarity
-  
+
     treeLayout(root);
-  
+
     // Convert polar coordinates to Cartesian for layout
     const radialPoint = (x, y) => [
       y * Math.cos(x - Math.PI / 2),
       y * Math.sin(x - Math.PI / 2),
     ];
-  
+
+    // Adjust the radial point calculation based on node depth
+    const adjustedRadialPoint = (d) => {
+      const depthMultiplier = d.depth === 1 ? 1 : 1.5; // Adjust multiplier for different depths
+      return radialPoint(d.x, d.y * depthMultiplier);
+    };
+
     // Clear previous tree elements
     svgTree.selectAll("*").remove();
-  
+
     svgTree.attr("transform", `translate(${treeWidth / 2},${treeHeight / 2})`);
-  
-    // Add links
-    svgTree
+
+    // Add links with transition
+    const links = svgTree
       .selectAll(".link")
-      .data(root.links())
-      .enter()
+      .data(root.links());
+
+    links.enter()
       .append("line")
       .attr("class", "link")
-      .attr("x1", (d) => radialPoint(d.source.x, d.source.y)[0])
-      .attr("y1", (d) => radialPoint(d.source.x, d.source.y)[1])
-      .attr("x2", (d) => radialPoint(d.target.x, d.target.y)[0])
-      .attr("y2", (d) => radialPoint(d.target.x, d.target.y)[1])
+      .attr("x1", (d) => adjustedRadialPoint(d.source)[0])
+      .attr("y1", (d) => adjustedRadialPoint(d.source)[1])
+      .attr("x2", (d) => adjustedRadialPoint(d.source)[0])
+      .attr("y2", (d) => adjustedRadialPoint(d.source)[1])
       .attr("stroke", "#ccc")
-      .attr("stroke-width", 2);
-  
-    // Add nodes
+      .attr("stroke-width", 2)
+      .transition()
+      .duration(1000)
+      .attr("x2", (d) => adjustedRadialPoint(d.target)[0])
+      .attr("y2", (d) => adjustedRadialPoint(d.target)[1]);
+
+    links.transition()
+      .duration(1000)
+      .attr("x1", (d) => adjustedRadialPoint(d.source)[0])
+      .attr("y1", (d) => adjustedRadialPoint(d.source)[1])
+      .attr("x2", (d) => adjustedRadialPoint(d.target)[0])
+      .attr("y2", (d) => adjustedRadialPoint(d.target)[1]);
+
+    links.exit()
+      .transition()
+      .duration(500)
+      .attr("x2", (d) => adjustedRadialPoint(d.source)[0])
+      .attr("y2", (d) => adjustedRadialPoint(d.source)[1])
+      .remove();
+
+    // Add nodes with transition
     const nodes = svgTree
       .selectAll(".node")
-      .data(root.descendants())
-      .enter()
+      .data(root.descendants());
+
+    const nodeEnter = nodes.enter()
       .append("g")
       .attr("class", "node")
-      .attr(
-        "transform",
-        (d) => `translate(${radialPoint(d.x, d.y)[0]},${radialPoint(d.x, d.y)[1]})`
-      );
-  
-    nodes
-      .append("circle")
+      .attr("transform", (d) => `translate(${adjustedRadialPoint(d)[0]},${adjustedRadialPoint(d)[1]})`);
+
+    nodeEnter.append("circle")
       .attr("r", 6) // Reduced node size for better spacing
       .attr("fill", "#69b3a2")
       .attr("stroke", "#555")
       .attr("stroke-width", 1.5);
-  
-    // Add text labels
-    nodes
-      .append("text")
+
+    // Add background rectangles for text labels (initially hidden)
+    const labelBackgrounds = nodeEnter.append("rect")
+      .attr("class", "label-background")
+      .attr("x", (d) => (d.x < Math.PI ? 10 : -10) - (d.data.name.length * 3.5)) // Center background
+      .attr("y", -10) // Adjust y position to center the background
+      .attr("width", (d) => d.data.name.length * 7) // Adjust width based on text length
+      .attr("height", 20) // Fixed height
+      .attr("fill", "rgba(0, 0, 0, 0.7)") // Black background
+      .style("opacity", 0); // Initially hidden
+
+    // Add text labels (initially hidden)
+    const labels = nodeEnter.append("text")
       .attr("dy", "0.31em")
       .attr("x", (d) => (d.x < Math.PI ? 10 : -10)) // Position labels to the side
       .attr("text-anchor", (d) => (d.x < Math.PI ? "start" : "end"))
       .text((d) => d.data.name)
       .style("font-size", "12px")
       .style("font-family", "Arial, sans-serif")
-      .style("fill", "#333");
+      .style("fill", "#fff") // Set initial text color to white
+      .style("opacity", 0); // Initially hidden
+
+    // Show labels and backgrounds on hover
+    nodeEnter.on("mouseover", function (event, d) {
+      d3.select(this).select("text").transition().duration(200).style("opacity", 1);
+      d3.select(this).select(".label-background").transition().duration(200).style("opacity", 0.7);
+    }).on("mouseout", function (event, d) {
+      d3.select(this).select("text").transition().duration(200).style("opacity", 0);
+      d3.select(this).select(".label-background").transition().duration(200).style("opacity", 0);
+    });
+
+    nodes.transition()
+      .duration(1000)
+      .attr("transform", (d) => `translate(${adjustedRadialPoint(d)[0]},${adjustedRadialPoint(d)[1]})`);
+
+    nodes.exit()
+      .transition()
+      .duration(500)
+      .attr("transform", (d) => `translate(${adjustedRadialPoint(d)[0]},${adjustedRadialPoint(d)[1]})`)
+      .remove();
   }
-  
 
   updateChart([minYear, maxYear]);
 
