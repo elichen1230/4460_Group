@@ -23,6 +23,17 @@ const tooltip = d3
 const minYear = 1990;
 const maxYear = 2024;
 
+// Define the network colors
+const networkColors = {
+  "netflix": "#8dd3c7",
+  "fox": "#ffffb3",
+  "disney+": "#bebada",
+  "cbs": "#fb8072",
+  "prime video": "#80b1d3",
+  "nbc": "#fdb462",
+  "hulu": "#b3de69"
+};
+
 // Load and process data
 d3.csv("specific_networks.csv").then((data) => {
   // Filter data within the year range
@@ -93,7 +104,7 @@ d3.csv("specific_networks.csv").then((data) => {
       .attr("y", height)
       .attr("width", xScale.bandwidth())
       .attr("height", 0)
-      .attr("fill", "#69b3a2")
+      .attr("fill", (d) => networkColors[d.network.toLowerCase()] || "#69b3a2") // Use network color or default
       .on("mouseover", function (event, d) {
         tooltip.transition().duration(200).style("opacity", 0.9);
         tooltip
