@@ -45,17 +45,19 @@ d3.csv("specific_networks.csv").then((data) => {
   // Add a year property to each data entry
   data.forEach((d) => {
     d.year = new Date(d.first_air_date).getFullYear();
+    d.vote_count = +d.vote_count;
+    d.popularity = +d.popularity;
   });
 
-  // Function to update the chart based on the selected year range
-  function updateChart(yearRange) {
+  // Function to update the chart based on the selected year range and metric
+  function updateChart(yearRange, metric) {
     // Filter data within the selected year range
     const filteredData = data.filter((d) => d.year >= yearRange[0] && d.year <= yearRange[1]);
 
-    // Count occurrences of each network
+    // Count occurrences of each network based on the selected metric
     const networkCounts = d3.rollups(
       filteredData,
-      (v) => v.length,
+      (v) => d3.sum(v, (d) => d[metric]),
       (d) => d.networks
     );
 
@@ -161,7 +163,7 @@ d3.csv("specific_networks.csv").then((data) => {
   }
 
   // Render the initial chart
-  updateChart([minYear, maxYear]);
+  updateChart([minYear, maxYear], "vote_count");
 
   // Add a slider for interactivity
   const sliderRange = d3
@@ -175,7 +177,8 @@ d3.csv("specific_networks.csv").then((data) => {
     .default([minYear, maxYear])
     .fill("#2196f3")
     .on("onchange", (val) => {
-      updateChart(val);
+      const metric = document.getElementById("metricSelector").value;
+      updateChart(val, metric);
     });
 
   d3.select("#year-slider")
@@ -185,4 +188,11 @@ d3.csv("specific_networks.csv").then((data) => {
     .append("g")
     .attr("transform", "translate(30,30)")
     .call(sliderRange);
+
+  // Event listener for metric selector
+  document.getElementById("metricSelector").addEventListener("change", () => {
+    const yearRange = sliderRange.value();
+    const metric = document.getElementById("metricSelector").value;
+    updateChart(yearRange, metric);
+  });
 });

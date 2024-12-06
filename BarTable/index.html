@@ -11,7 +11,7 @@
     <div class="slider-container">
       <div id="year-slider"></div>
     </div>
-    <div id="chart-container">
+    <div id="main-container">
       <div id="bar-chart"></div>
       <div id="table-container">
         <table>
@@ -24,6 +24,10 @@
           </thead>
           <tbody id="table-body"></tbody>
         </table>
+        <select id="metricSelector">
+          <option value="vote_count">Vote Count</option>
+          <option value="popularity">Popularity</option>
+        </select>
       </div>
     </div>
     <script src="main.js"></script>
