@@ -13,11 +13,13 @@ const svgPie = d3
   .attr("transform", `translate(${width / 2},${height / 2})`);
 
 // Append the SVG container for the tree graph
+const treeWidth = 800;
+const treeHeight = 800;
 const svgTree = d3
   .select("#tree-container")
   .append("svg")
-  .attr("width", width)
-  .attr("height", height)
+  .attr("width", treeWidth)
+  .attr("height", treeHeight)
   .append("g");
 
 // Tooltip setup
@@ -25,7 +27,15 @@ const tooltip = d3
   .select("body")
   .append("div")
   .attr("class", "tooltip")
-  .style("opacity", 0);
+  .style("opacity", 0)
+  .style("position", "absolute")
+  .style("background", "rgba(0, 0, 0, 0.7)")
+  .style("color", "#fff")
+  .style("padding", "8px")
+  .style("border-radius", "5px")
+  .style("pointer-events", "none")
+  .style("font-size", "12px")
+  .style("box-shadow", "0 2px 6px rgba(0, 0, 0, 0.15)");
 
 // Define the year range
 const minYear = 1990;
@@ -146,17 +156,21 @@ d3.csv("specific_networks.csv").then((data) => {
     const root = d3.hierarchy(treeData);
     const treeLayout = d3
       .tree()
-      .size([2 * Math.PI, radius - 100])
-      .separation((a, b) => (a.parent === b.parent ? 1 : 2) / a.depth);
+      .size([2 * Math.PI, radius - 100]) // Reduced radius to keep visualization within bounds
+      .separation((a, b) => (a.parent === b.parent ? 0.8 : 1.5)); // Adjust separation for clarity
+  
     treeLayout(root);
   
-    const radialPoint = (x, y) => {
-      return [y * Math.cos(x - Math.PI / 2), y * Math.sin(x - Math.PI / 2)];
-    };
+    // Convert polar coordinates to Cartesian for layout
+    const radialPoint = (x, y) => [
+      y * Math.cos(x - Math.PI / 2),
+      y * Math.sin(x - Math.PI / 2),
+    ];
   
+    // Clear previous tree elements
     svgTree.selectAll("*").remove();
   
-    svgTree.attr("transform", `translate(${width / 2},${height / 2})`);
+    svgTree.attr("transform", `translate(${treeWidth / 2},${treeHeight / 2})`);
   
     // Add links
     svgTree
@@ -179,27 +193,29 @@ d3.csv("specific_networks.csv").then((data) => {
       .enter()
       .append("g")
       .attr("class", "node")
-      .attr("transform", (d) => `translate(${radialPoint(d.x, d.y)})`);
+      .attr(
+        "transform",
+        (d) => `translate(${radialPoint(d.x, d.y)[0]},${radialPoint(d.x, d.y)[1]})`
+      );
   
     nodes
       .append("circle")
-      .attr("r", 10)
+      .attr("r", 6) // Reduced node size for better spacing
       .attr("fill", "#69b3a2")
       .attr("stroke", "#555")
-      .attr("stroke-width", 2);
+      .attr("stroke-width", 1.5);
   
     // Add text labels
     nodes
       .append("text")
       .attr("dy", "0.31em")
-      .attr("x", (d) => (d.x < Math.PI ? 15 : -15)) // Push text outward
-      .attr("text-anchor", (d) => (d.x < Math.PI ? "start" : "end")) // Align text properly
+      .attr("x", (d) => (d.x < Math.PI ? 10 : -10)) // Position labels to the side
+      .attr("text-anchor", (d) => (d.x < Math.PI ? "start" : "end"))
       .text((d) => d.data.name)
       .style("font-size", "12px")
       .style("font-family", "Arial, sans-serif")
       .style("fill", "#333");
   }
-  
   
 
   updateChart([minYear, maxYear]);
