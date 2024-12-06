@@ -1,7 +1,7 @@
 // Set up the margins and dimensions
 const margin = { top: 40, right: 200, bottom: 40, left: 60 };
-const width = 960 - margin.left - margin.right;
-const height = 500 - margin.top - margin.bottom;
+const width = 600;
+const height = 600;
 const radius = Math.min(width, height) / 2;
 
 // Append the SVG container
@@ -11,7 +11,7 @@ const svg = d3
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
-  .attr("transform", `translate(${width / 2 + margin.left},${height / 2 + margin.top})`);
+  .attr("transform", `translate(${(width + margin.left) / 2},${(height + margin.top) / 2})`);
 
 // Tooltip setup
 const tooltip = d3
@@ -62,7 +62,7 @@ d3.csv("specific_networks.csv").then((data) => {
     const arc = d3.arc().innerRadius(0).outerRadius(radius);
 
     // Set up the color scale
-    const color = d3.scaleOrdinal().domain(pieData.map((d) => d.genre)).range(d3.schemeCategory10);
+    const color = d3.scaleOrdinal().domain(pieData.map((d) => d.genre)).range(d3.schemeSet3);
 
     // Bind data to the pie chart paths
     const pieGroups = svg.selectAll("path").data(pie(pieData));

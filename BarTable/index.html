@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Most Popular Networks Linked View</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <h1 class="chart-title">Most Popular Networks Linked View</h1>
+    <div class="slider-container">
+      <div id="year-slider"></div>
+    </div>
+    <div id="chart-container">
+      <div id="bar-chart"></div>
+      <div id="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Network</th>
+              <th>Most Popular Genre</th>
+              <th>Most Popular Show</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
