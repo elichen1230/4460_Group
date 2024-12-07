@@ -81,6 +81,7 @@ d3.csv("specific_networks.csv").then((data) => {
       .attr("d", arc)
       .attr("fill", (d) => colorScale(d.data.genre))
       .style("opacity", 0)
+      .each(function (d) { this._current = d; }) // Store the initial angles
       .on("mouseover", function (event, d) {
         tooltip.transition().duration(200).style("opacity", 0.9);
         tooltip
@@ -102,7 +103,10 @@ d3.csv("specific_networks.csv").then((data) => {
           { startAngle: d.startAngle, endAngle: d.endAngle }
         );
         return function (t) {
-          return arc(interpolate(t));
+          const b = interpolate(t);
+          b.innerRadius = 0;
+          b.outerRadius = radius + 10 * Math.sin(t * Math.PI); // Add distortion
+          return arc(b);
         };
       });
 
@@ -110,10 +114,13 @@ d3.csv("specific_networks.csv").then((data) => {
       .transition()
       .duration(1000)
       .attrTween("d", function (d) {
-        const interpolate = d3.interpolate(this._current || d, d);
+        const interpolate = d3.interpolate(this._current, d);
         this._current = interpolate(1);
         return function (t) {
-          return arc(interpolate(t));
+          const b = interpolate(t);
+          b.innerRadius = 0;
+          b.outerRadius = radius + 10 * Math.sin(t * Math.PI); // Add distortion
+          return arc(b);
         };
       });
 

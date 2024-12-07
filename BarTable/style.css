@@ -29,13 +29,14 @@ body {
   }
   
   #bar-chart {
-    width: 70%; /* Occupy more space for the bar chart */
-    height: 500px;
-    background: #f7f9fc; /* Light background for contrast */
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width of its parent container */
+    height: 500px; /* Fixed height */
+    background: #f7f9fc; /* Light background */
+    padding: 0; /* Remove padding to avoid extra space */
+    margin: 0; /* Remove margins */
+    box-sizing: border-box; /* Ensure padding is included in the width/height calculation */
   }
+  
   
   #table-container {
     width: 25%; /* Occupy less space for the table */
