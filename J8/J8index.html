@@ -6,107 +6,57 @@
     <script src="https://unpkg.com/d3-simple-slider"></script>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-      }
+    font-family: Arial, sans-serif;
+    max-width: 800px; /* Reduced page width */
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 12px; /* Smaller font size */
+  }
 
-      .filters {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        align-items: center;
-      }
-      .tooltip {
-        position: absolute;
-        padding: 10px;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        pointer-events: none;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Reduce spacing */
+    align-items: center;
+  }
 
-      .filter-group {
-        margin: 8px 0;
-        padding: 8px;
-        background: #f5f5f5;
-        border-radius: 4px;
-        display: inline-block;
-        margin-right: 15px;
-      }
+  .filter-group {
+    margin: 4px 0;
+    padding: 4px;
+    background: #f5f5f5;
+    border-radius: 4px;
+  }
 
-      .slider-container {
-        width: 1000px;
-        margin: 10px 0;
-        padding: 10px;
-        display: inline-block;
-      }
+  .slider-container {
+    width: 340px; /* Adjusted slider width */
+  }
 
-      #scatter-plot {
-        margin-top: 20px;
-        background: white;
-        border-radius: 4px;
-        padding: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      }
+  #scatter-plot {
+    margin-top: 20px;
+    width: 400px;
+    height: 250px;
+  }
 
-      select {
-        margin: 0 10px;
-        padding: 5px;
-        border-radius: 4px;
-        border: 1px solid #ddd;
-      }
+  select {
+    margin: 5px 5px 0 0;
+    padding: 4px;
+    font-size: 10px; /* Smaller font size */
+  }
 
-      #random-show-display {
-        margin: 20px 0;
-        padding: 15px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        background-color: #f9f9f9;
-      }
+  #random-show-display {
+    margin: 10px 0;
+    padding: 8px;
+    font-size: 12px; /* Smaller text */
+  }
 
-      button {
-        padding: 10px 20px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-      }
+  button {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
 
-      button:hover {
-        background-color: #45a049;
-      }
-
-      .dot {
-        transition: all 0.2s ease;
-      }
-
-      .highlighted-dot {
-        cursor: pointer;
-        filter: drop-shadow(0 0 3px rgba(255, 51, 51, 0.3));
-      }
-
-      label {
-        font-weight: bold;
-        color: #333;
-      }
-
-      .parameter-value {
-        font-family: Arial, sans-serif;
-        margin-bottom: 10px;
-        font-size: 0.9em;
-        color: #666;
-        margin-left: 10px;
-        background: #fff;
-        padding: 4px 8px;
-        border-radius: 3px;
-        border: 1px solid #ddd;
-        display: inline-block;
-      }
+  .tooltip {
+    font-size: 10px; /* Smaller tooltip */
+  }
     </style>
   </head>
   <body>
@@ -150,7 +100,8 @@
 
     <button id="random-show-btn">Get Random Show</button>
     <div id="random-show-display"></div>
-    <div id="scatter-plot"></div>
+    <div id="scatter-plot" style="width: 500px; margin: auto;"></div>
+
 
     <script src="J8.js"></script>
   </body>

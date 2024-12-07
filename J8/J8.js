@@ -1,11 +1,9 @@
 // Load and process data
 d3.csv("specific_networks.csv").then((data) => {
-  const filteredData = data;
-  const margin = { top: 20, right: 20, bottom: 50, left: 70 };
-  const width = 960 - margin.left - margin.right;
-  const height = 500 - margin.top - margin.bottom;
+  const margin = { top: 10, right: 10, bottom: 30, left: 40 };
+  const width = 400 - margin.left - margin.right;
+  const height = 250 - margin.top - margin.bottom;
 
-  // Populate filter dropdowns
   const populateFilter = (selectId, dataKey) => {
     const select = d3.select(`#${selectId}`);
     const uniqueValues = [
@@ -19,49 +17,43 @@ d3.csv("specific_networks.csv").then((data) => {
   populateFilter("genre-filter", "genres");
   populateFilter("language-filter", "original_language");
 
-  // Initialize range sliders
   const episodeRange = d3.extent(data, (d) => +d.episode_run_time);
   const seasonRange = d3.extent(data, (d) => +d.number_of_seasons);
 
-  // Create episode length slider
   const episodeSlider = d3
     .sliderBottom()
     .min(episodeRange[0])
     .max(episodeRange[1])
-    .width(800)
-    .tickFormat(d3.format("d"))
-    .ticks(10)
+    .width(320)
+    .ticks(5)
     .default([episodeRange[0], episodeRange[1]])
     .fill("#4CAF50");
 
   d3.select("#episode-slider")
     .append("svg")
-    .attr("width", 860)
-    .attr("height", 100)
+    .attr("width", 340)
+    .attr("height", 60)
     .append("g")
-    .attr("transform", "translate(30,30)")
+    .attr("transform", "translate(10,10)")
     .call(episodeSlider);
 
-  // Create seasons slider
   const seasonSlider = d3
     .sliderBottom()
     .min(seasonRange[0])
     .max(seasonRange[1])
-    .width(800)
-    .tickFormat(d3.format("d"))
-    .ticks(10)
+    .width(320)
+    .ticks(5)
     .default([seasonRange[0], seasonRange[1]])
     .fill("#4CAF50");
 
   d3.select("#season-slider")
     .append("svg")
-    .attr("width", 860)
-    .attr("height", 100)
+    .attr("width", 340)
+    .attr("height", 60)
     .append("g")
-    .attr("transform", "translate(30,30)")
+    .attr("transform", "translate(10,10)")
     .call(seasonSlider);
 
-  // Create scatter plot
   const svg = d3
     .select("#scatter-plot")
     .append("svg")
@@ -70,134 +62,79 @@ d3.csv("specific_networks.csv").then((data) => {
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  // Tooltip
   const tooltip = d3
     .select("body")
     .append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
-  const plotScatterPlot = (data, randomShow = null) => {
+  const plotScatterPlot = (filteredData) => {
     svg.selectAll("*").remove();
 
     const x = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => +d.number_of_seasons)])
+      .domain([0, d3.max(filteredData, (d) => +d.number_of_seasons)])
       .range([0, width]);
 
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => +d.popularity)])
+      .domain([0, d3.max(filteredData, (d) => +d.popularity)])
       .range([height, 0]);
 
     svg
       .append("g")
       .attr("transform", `translate(0,${height})`)
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x).ticks(5));
 
-    svg.append("g").call(d3.axisLeft(y));
+    svg.append("g").call(d3.axisLeft(y).ticks(5));
 
-    svg
-      .append("text")
-      .attr("transform", `translate(${width / 2},${height + margin.top + 20})`)
-      .style("text-anchor", "middle")
-      .text("Number of Seasons");
-
-    svg
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left)
-      .attr("x", 0 - height / 2)
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
-      .text("Popularity");
-
-    // Add regular points with muted colors
     svg
       .selectAll(".dot")
-      .data(data.filter((d) => !randomShow || d.name !== randomShow.name))
+      .data(filteredData)
       .enter()
       .append("circle")
-      .attr("class", "dot")
-      .attr("r", 4)
+      .attr("r", 3)
       .attr("cx", (d) => x(+d.number_of_seasons))
       .attr("cy", (d) => y(+d.popularity))
       .style("fill", "#b8b8b8")
-      .style("opacity", 0.4)
+      .style("opacity", 0.6)
       .on("mouseover", (event, d) => {
-        d3.select(event.currentTarget)
-          .style("opacity", 1)
-          .style("fill", "#808080")
-          .attr("r", 5);
-
         tooltip.transition().duration(200).style("opacity", 0.9);
         tooltip
           .html(
             `${d.name}<br/>
-               Seasons: ${d.number_of_seasons}<br/>
-               Popularity: ${d.popularity}<br/>
-               Episode Length: ${d.episode_run_time} min`
+             Seasons: ${d.number_of_seasons}<br/>
+             Popularity: ${d.popularity}<br/>
+             Episode Length: ${d.episode_run_time} min`
           )
           .style("left", event.pageX + 10 + "px")
           .style("top", event.pageY - 28 + "px");
       })
-      .on("mouseout", (event) => {
-        d3.select(event.currentTarget)
-          .style("opacity", 0.4)
-          .style("fill", "#b8b8b8")
-          .attr("r", 4);
-
+      .on("mouseout", () => {
         tooltip.transition().duration(500).style("opacity", 0);
       });
+  };
 
-    // Add highlighted point on top
-    if (randomShow) {
-      svg
-        .append("circle")
-        .attr("class", "highlighted-dot")
-        .attr("r", 4)
-        .attr("cx", x(+randomShow.number_of_seasons))
-        .attr("cy", y(+randomShow.popularity))
-        .style("fill", "#ff3333")
-        .style("stroke", "#000")
-
-        .style("opacity", 1)
-        .on("mouseover", (event) => {
-          tooltip.transition().duration(200).style("opacity", 0.9);
-          tooltip
-            .html(
-              `${randomShow.name}<br/>
-                 Seasons: ${randomShow.number_of_seasons}<br/>
-                 Popularity: ${randomShow.popularity}<br/>
-                 Episode Length: ${randomShow.episode_run_time} min`
-            )
-            .style("left", event.pageX + 10 + "px")
-            .style("top", event.pageY - 28 + "px");
-        })
-        .on("mouseout", () => {
-          tooltip.transition().duration(500).style("opacity", 0);
-        });
+  // Function to display a random show
+  const displayRandomShow = (filteredData) => {
+    if (filteredData.length === 0) {
+      d3.select("#random-show-display").html("<h2>No shows found</h2>");
+      return;
     }
+
+    const randomShow =
+      filteredData[Math.floor(Math.random() * filteredData.length)];
+
+    d3.select("#random-show-display").html(`
+      <h2>Random Show</h2>
+      <p><strong>Name:</strong> ${randomShow.name}</p>
+      <p><strong>Seasons:</strong> ${randomShow.number_of_seasons}</p>
+      <p><strong>Popularity:</strong> ${randomShow.popularity}</p>
+      <p><strong>Episode Length:</strong> ${randomShow.episode_run_time} minutes</p>
+    `);
   };
 
-  // Initial plot
-  plotScatterPlot(filteredData);
-
-  // Update range displays
-  const updateRangeDisplays = () => {
-    const episodeValues = episodeSlider.value();
-    const seasonValues = seasonSlider.value();
-
-    d3.select("#episode-range-display").text(
-      `${Math.round(episodeValues[0])} - ${Math.round(episodeValues[1])} min`
-    );
-    d3.select("#season-range-display").text(
-      `${Math.round(seasonValues[0])} - ${Math.round(seasonValues[1])} seasons`
-    );
-  };
-
-  // Filtering logic
-  const applyFilters = (selectNewRandom = false) => {
+  const applyFilters = () => {
     const genreFilter = d3.select("#genre-filter").property("value");
     const languageFilter = d3.select("#language-filter").property("value");
     const episodeValues = episodeSlider.value();
@@ -213,46 +150,19 @@ d3.csv("specific_networks.csv").then((data) => {
         +show.number_of_seasons <= seasonValues[1]
     );
 
-    let randomShow = null;
-    const randomShowDisplay = d3.select("#random-show-display");
-
-    if (filteredData.length > 0 && selectNewRandom) {
-      randomShow =
-        filteredData[Math.floor(Math.random() * filteredData.length)];
-      randomShowDisplay.html(`
-          <h2>Random Show</h2>
-          <p>Name: ${randomShow.name}</p>
-          <p>Seasons: ${randomShow.number_of_seasons}</p>
-          <p>Popularity: ${randomShow.popularity}</p>
-          <p>Episode Length: ${randomShow.episode_run_time} minutes</p>
-        `);
-    } else if (filteredData.length === 0) {
-      randomShowDisplay.html("<h2>No shows match the current filters</h2>");
-    }
-
-    plotScatterPlot(filteredData, randomShow);
-    updateRangeDisplays();
+    plotScatterPlot(filteredData);
+    return filteredData; // Return filtered data for random show selection
   };
 
-  // Event listeners for filters
-  ["genre-filter", "language-filter"].forEach((id) => {
-    d3.select(`#${id}`).on("change", () => applyFilters(false));
+  // Event listener for "Get Random Show" button
+  d3.select("#random-show-btn").on("click", () => {
+    const filteredData = applyFilters();
+    displayRandomShow(filteredData);
   });
 
-  // Event listeners for sliders
-  episodeSlider.on("onchange", () => {
-    updateRangeDisplays();
-    applyFilters(false);
-  });
+  // Initial plot
+  plotScatterPlot(data);
 
-  seasonSlider.on("onchange", () => {
-    updateRangeDisplays();
-    applyFilters(false);
-  });
-
-  // Random show button
-  d3.select("#random-show-btn").on("click", () => applyFilters(true));
-
-  // Initialize range displays
-  updateRangeDisplays();
+  episodeSlider.on("onchange", () => applyFilters());
+  seasonSlider.on("onchange", () => applyFilters());
 });
