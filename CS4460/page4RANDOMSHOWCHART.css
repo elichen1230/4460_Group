@@ -1,0 +1,104 @@
+/* General Reset */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Light gray background */
+    color: #333; /* Dark text */
+  }
+  
+  /* Container for the filters */
+  .filters-container {
+    background-color: #ffffff; /* White background for the filter box */
+    border: 1px solid #ddd; /* Light border for separation */
+    padding: 15px; /* Reduced padding */
+    margin: 15px auto; /* Centered on the page */
+    width: 70%; /* Reduced width for a smaller box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  /* Filter Rows */
+  .filter-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Reduced space between rows */
+  }
+  
+  /* Filter Group Styling */
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 48%; /* Ensure two filters fit side-by-side */
+  }
+  
+  .filter-group label {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .filter-group select {
+    padding: 6px; /* Slightly smaller dropdowns */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Light background for dropdown */
+    font-size: 13px;
+  }
+  
+  /* Slider Container Styling */
+  .slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduced gap */
+  }
+  
+  .parameter-value {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+  }
+  
+  /* Button Styling */
+  #random-show-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 8px 16px; /* Reduced padding */
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px; /* Slightly smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #random-show-btn:hover {
+    background-color: #45a049; /* Slightly darker green */
+  }
+  
+  /* Random Show Display */
+  #random-show-display {
+    text-align: center;
+    margin: 20px auto;
+    padding: 12px; /* Reduced padding */
+    border: 1px dashed #ccc;
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 60%;
+    font-size: 16px; /* Reduced font size */
+    font-style: italic;
+    color: #444;
+  }
+  
+  /* Scatter Plot */
+  #scatter-plot {
+    width: 80%;
+    height: 400px;
+    margin: 30px auto; /* Reduced margin */
+    background-color: #ffffff; /* White background */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  

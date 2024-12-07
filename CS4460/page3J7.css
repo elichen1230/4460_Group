@@ -1,0 +1,36 @@
+.tooltip {
+    position: absolute;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    pointer-events: none;
+    font-size: 12px;
+  }
+
+  #chart {
+    margin: 20px;
+  }
+
+  .chart-title {
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .slider-container {
+    width: 860px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+
+  .parameter-value {
+    font-family: Arial, sans-serif;
+    margin-bottom: 10px;
+  }
+  #chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }

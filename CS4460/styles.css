@@ -1,0 +1,136 @@
+/* Reset styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Navigation Bar Styles */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #333; /* Dark background for better contrast */
+  padding: 10px;
+  text-align: center;
+  z-index: 1000; /* Ensure the navigation stays on top */
+}
+
+nav a {
+  color: white; /* White text for navigation links */
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 18px;
+}
+
+nav a:hover {
+  text-decoration: underline; /* Underline on hover for better UX */
+}
+
+/* Section Styles */
+section {
+  height: 100vh; /* Each section takes up the full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Center-align text for better readability */
+  padding: 20px;
+}
+
+/* Unique Background and Text Colors for Each Page */
+#page1 {
+  background-color: #87ceeb; /* Light blue for a calm introduction */
+  color: #333; /* Dark text for contrast */
+}
+
+#page2 {
+  background-color: #f08080; /* Light coral for vibrance */
+  color: white; /* White text for better visibility */
+}
+
+#page3 {
+  background-color: #ffe4b5; /* Moccasin for a warm feel */
+  color: #333;
+}
+
+#page4 {
+  background-color: #98fb98; /* Pale green for a refreshing vibe */
+  color: #333;
+}
+
+#page5 {
+  background-color: #dda0dd; /* Plum for a soft, creative feel */
+  color: white;
+}
+
+#page6 {
+  background-color: #ffa07a; /* Light salmon for energy */
+  color: #333;
+}
+
+#page7 {
+  background-color: #4682b4; /* Steel blue for a calm yet strong tone */
+  color: white;
+}
+
+#page8 {
+  background-color: #f0e68c; /* Khaki for a neutral break */
+  color: #333;
+}
+
+#page9 {
+  background-color: #d2691e; /* Chocolate for depth and warmth */
+  color: white;
+}
+
+#page10 {
+  background-color: #ffdab9; /* Peach puff for a soft ending */
+  color: #333;
+}
+
+/* Smooth Scrolling */
+html, body {
+  scroll-behavior: smooth; /* Smooth scrolling between sections */
+}
+
+/* Scroll Tracker Styles */
+.scroll-tracker {
+  position: fixed;
+  top: 50%; /* Vertically centered */
+  right: 20px; /* Positioned near the right edge */
+  transform: translateY(-50%); /* Perfect vertical centering */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Spacing between tracker circles */
+}
+
+.tracker-circle {
+  width: 15px; /* Small circular tracker */
+  height: 15px;
+  border: 2px solid #333; /* Border matches active state color */
+  border-radius: 50%; /* Circular shape */
+  background-color: white; /* Default background */
+  cursor: pointer; /* Pointer cursor for better UX */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover animations */
+}
+
+.tracker-circle.active {
+  background-color: #333; /* Filled background for active state */
+  transform: scale(1.2); /* Slight enlargement for emphasis */
+}
+
+/* Snap Scrolling */
+body {
+  scroll-snap-type: y mandatory; /* Enable vertical snap scrolling */
+  overflow-y: scroll; /* Ensure scrollable content */
+}
+
+section {
+  scroll-snap-align: start; /* Snap to the top of the section */
+}

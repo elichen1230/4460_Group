@@ -1,0 +1,101 @@
+body {
+    background: linear-gradient(135deg, #f3e7e9, #e3eeff); /* Soft pastel gradient */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .chart-title {
+    font-family: 'Verdana', sans-serif;
+    font-size: 28px;
+    text-align: center;
+    margin: 20px;
+    color: #333; /* Neutral dark text */
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  .slider-container {
+    width: 860px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  #main-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  #bar-chart {
+    width: 70%; /* Occupy more space for the bar chart */
+    height: 500px;
+    background: #f7f9fc; /* Light background for contrast */
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #table-container {
+    width: 25%; /* Occupy less space for the table */
+    margin-left: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff; /* White table background */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  table th,
+  table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #444; /* Subtle text color */
+  }
+  
+  table th {
+    background-color: #3a86ff; /* Modern blue for header */
+    color: white;
+    font-weight: bold;
+  }
+  
+  table td:first-child {
+    font-weight: bold;
+    color: #ff006e; /* Accent color for first column */
+  }
+  
+  #metricSelector {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    color: #444; /* Subtle text color */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  #metricSelector:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .bar {
+    transition: fill 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  }
+  
+  .bar:hover {
+    fill: #ffbe0b; /* Highlight color on hover */
+    opacity: 0.8;
+  }
+  
