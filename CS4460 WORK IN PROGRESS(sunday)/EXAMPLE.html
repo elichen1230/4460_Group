@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-Page D3 Graphs</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script> <!-- D3.js Library -->
+  <script src="https://unpkg.com/d3-simple-slider"></script> <!-- D3 Slider -->
+</head>
+<body>
+  <nav>
+    <a href="#page1">Page 1</a>
+    <a href="#page2">Page 2</a>
+    <a href="#page3">Page 3</a>
+    <a href="#page4">Page 4</a>
+    <a href="#page5">Page 5</a>
+    <a href="#page6">Page 6</a>
+    <a href="#page7">Page 7</a>
+    <a href="#page8">Page 8</a>
+    <a href="#page9">Page 9</a>
+    <a href="#page10">Page 10</a>
+  </nav>
+
+  <div class="scroll-tracker">
+    <span data-target="#page1" class="tracker-circle"></span>
+    <span data-target="#page2" class="tracker-circle"></span>
+    <span data-target="#page3" class="tracker-circle"></span>
+    <span data-target="#page4" class="tracker-circle"></span>
+    <span data-target="#page5" class="tracker-circle"></span>
+    <span data-target="#page6" class="tracker-circle"></span>
+    <span data-target="#page7" class="tracker-circle"></span>
+    <span data-target="#page8" class="tracker-circle"></span>
+    <span data-target="#page9" class="tracker-circle"></span>
+    <span data-target="#page10" class="tracker-circle"></span>
+  </div>
+
+  <!-- Page 1 -->
+  <section id="page1">
+    <h1 class="chart-title">Streaming Service Launch Timeline</h1>
+    <div id="timeline"></div>
+    <script src="page1.js"></script>
+  </section>
+
+<!-- Page 2 -->
+<section id="page2">
+  <link rel="preload" href="page2.css" as="style">
+  <link rel="stylesheet" href="page2.css">
+
+  <div id="main-container2">
+    <h1 class="chart-title3">Most Popular Networks Over Time REVIEW THIS</h1>
+    <div class="slider-container2">
+      <div id="year-slider-page2"></div>
+    </div>
+    <div id="content-container">
+      <div id="bar-chart-page2"></div>
+      <div id="table-container-page2">
+        <table>
+          <thead>
+            <tr>
+              <th>Network</th>
+              <th>Most Popular Genre</th>
+              <th>Most Popular Show</th>
+            </tr>
+          </thead>
+          <tbody id="table-body-page2"></tbody>
+        </table>
+        <select id="metricSelector-page2">
+          <option value="vote_count">Vote Count</option>
+          <option value="popularity">Popularity</option>
+        </select>
+        <!-- Reset Button -->
+        <button id="reset-button-page2">
+          Reset to Networks
+        </button>
+      </div>
+    </div>
+  </div>
+  <script src="page2.js"></script>
+
+</section>
+
+
+  <!-- Page 3 -->
+  <section id="page3">
+    <h1>insert text or next vis</h1>
+  </section>
+
+  <!-- Page 4 -->
+  <section id="page4">
+    <link rel="preload" href="page4.css" as="style">
+    <link rel="stylesheet" href="page4.css">
+    <div id="main-container4">
+      <h1 class="chart-title">Evolution of the Most Popular Genres</h1>
+      <div class="slider-container4">
+        <div id="year-slider-page4"></div>
+      </div>
+      <div id="chart-container4">
+        <div id="pie-chart-page4"></div>
+        <div id="tree-container-page4"></div>
+      </div>
+    </div>
+    <script src="page4.js"></script>
+  </section>
+
+  <!-- Page 5 -->
+  <section id="page5">
+    <link rel="preload" href="page5.css" as="style">
+    <link rel="stylesheet" href="page5.css">
+    <div id="main-container5">
+      <h1 class="chart-title">Genre Distribution Across Networks</h1>
+      <div class="slider-container5">
+        <div id="year-slider-page5"></div>
+        <div id="year-range-page5" class="parameter-value"></div>
+      </div>
+      <div id="chart-container">
+        <div id="chart-page5"></div>
+      </div>
+    </div>
+    <script src="page5.js"></script>
+  </section>
+
+  <!-- Page 6 -->
+  <section id="page6">
+    <h1>i think justin's complex graph should be here</h1>
+  </section>
+
+  <!-- Page 7 -->
+  <section id="page7">
+    <link rel="preload" href="page7.css" as="style">
+    <link rel="stylesheet" href="page7.css">
+    <div id="main-container">
+      <h1 class="chart-title">TV Shows Visualization</h1>
+      <div class="filters-container">
+        <div class="filters">
+          <div class="filter-row">
+            <div class="filter-group">
+              <label>Genre:</label>
+              <select id="genre-filter">
+                <option value="">All Genres</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Language:</label>
+              <select id="language-filter">
+                <option value="">All Languages</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <div class="filter-group">
+              <label>Episode Length (minutes):</label>
+              <div class="slider-container">
+                <div id="episode-slider"></div>
+                <div id="episode-range-display" class="parameter-value"></div>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <label>Number of Seasons:</label>
+              <div class="slider-container">
+                <div id="season-slider"></div>
+                <div id="season-range-display" class="parameter-value"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="random-show-btn">Get Random Show</button>
+      <div id="random-show-display"></div>
+      <div id="scatter-plot"></div>
+    </div>
+    <script src="page7.js"></script>
+  </section>
+
+  <!-- Page 8 -->
+  <section id="page8">
+    <h1>Page 8</h1>
+    <p>Welcome to Page 8!</p>
+  </section>
+
+  <!-- Page 9 -->
+  <section id="page9">
+    <h1>Page 9</h1>
+    <p>Welcome to Page 9!</p>
+  </section>
+
+  <!-- Page 10 -->
+  <section id="page10">
+    <h1>Page 10</h1>
+    <p>Congratulations!</p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

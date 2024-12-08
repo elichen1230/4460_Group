@@ -1,0 +1,127 @@
+:root {
+  --base-width: 800px;
+  --base-height: 600px;
+  --scale-factor: 1;
+}
+
+body {
+  background: #ffffff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#main-container {
+  width: var(--base-width);
+  height: var(--base-height);
+  margin: 0 auto;
+  position: relative;
+  transform-origin: top left;
+  transform: scale(var(--scale-factor));
+}
+
+.chart-title {
+  font-family: 'Verdana', sans-serif;
+  font-size: calc(28px * var(--scale-factor));
+  text-align: center;
+  margin: 20px;
+  color: #333;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.slider-container {
+  width: 100%;
+  max-width: var(--base-width);
+  margin: 20px auto 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  overflow: visible; /* Ensure slider ends don't get clipped */
+  position: relative; /* Make sure the slider stays visible */
+  z-index: 1; /* Ensure it remains on top of other elements */
+}
+
+#content-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+#bar-chart {
+  width: calc(70% * var(--scale-factor));
+  height: calc(70vh * var(--scale-factor));
+  background: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#table-container {
+  width: calc(25% * var(--scale-factor));
+  margin-left: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: calc(12px * var(--scale-factor));
+  text-align: left;
+  font-family: 'Arial', sans-serif;
+  font-size: calc(14px * var(--scale-factor));
+  color: #444;
+}
+
+table th {
+  background-color: #3a86ff;
+  color: white;
+  font-weight: bold;
+}
+
+table td:first-child {
+  font-weight: bold;
+  color: #ff006e;
+}
+
+#metricSelector {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: calc(10px * var(--scale-factor));
+  font-size: calc(16px * var(--scale-factor));
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-family: Arial, sans-serif;
+  color: #444;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#metricSelector:hover {
+  background-color: #e0e0e0;
+}
+
+button {
+  margin-top: 20px;
+  padding: calc(10px * var(--scale-factor)) calc(20px * var(--scale-factor));
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: calc(16px * var(--scale-factor));
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1976d2;
+}

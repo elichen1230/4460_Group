@@ -1,0 +1,100 @@
+:root {
+  --base-width: 1600px; /* Adjusted to fit the new layout */
+  --base-height: 1200px; /* Adjusted to fit the new layout */
+  --scale-factor: 1;
+}
+
+body {
+  background: #ffffff; /* Solid white background */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333; /* Neutral dark text */
+}
+
+#main-container {
+  width: calc(var(--base-width) * var(--scale-factor));
+  height: calc(var(--base-height) * var(--scale-factor));
+  margin: 0 auto;
+  position: relative;
+  transform-origin: top left;
+  transform: scale(var(--scale-factor));
+}
+
+.chart-title {
+  font-family: 'Verdana', sans-serif;
+  font-size: calc(28px * var(--scale-factor)); /* Scale title size */
+  text-align: center;
+  margin: 20px;
+  color: #2c3e50; /* Deep blue-gray */
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.slider-container {
+  width: calc(90% * var(--scale-factor)); /* Adjust width as needed */
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center; /* Center the slider */
+}
+
+#chart-container {
+  display: flex;
+  flex-direction: row; /* Ensure the pie chart and graph are side-by-side */
+  justify-content: space-around; /* Provide equal spacing */
+  align-items: flex-start;
+  margin-top: 20px;
+  gap: 20px; /* Optional: Space between the two charts */
+}
+#pie-chart {
+  width: calc(600px * var(--scale-factor));
+  height: calc(600px * var(--scale-factor));
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+}
+
+#tree-container {
+  width: calc(800px * var(--scale-factor));
+  height: calc(800px * var(--scale-factor));
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+} 
+
+.link {
+  fill: none;
+  stroke: #7f8c8d; /* Soft gray */
+  stroke-width: 2px;
+}
+
+.node circle {
+  fill: #74b9ff; /* Pastel blue for nodes */
+  stroke: #2d3436; /* Dark gray for contrast */
+  stroke-width: 2px;
+  transition: fill 0.2s ease-in-out;
+}
+
+.node circle:hover {
+  fill: #ffeaa7; /* Soft yellow highlight */
+}
+
+.node text {
+  font-size: calc(12px * var(--scale-factor));
+  text-anchor: middle;
+  font-family: Arial, sans-serif;
+  fill: #333; /* Neutral dark text color */
+}
+
+.slider .track {
+  stroke: #dfe6e9; /* Light gray */
+}
+
+.slider .track-inset {
+  stroke: #b2bec3; /* Muted gray */
+}
+
+.slider .tick text {
+  fill: #636e72; /* Muted gray for tick labels */
+}

@@ -1,0 +1,72 @@
+:root {
+  --base-width: 1600px; /* Adjusted to fit the new layout */
+  --base-height: 1200px; /* Adjusted to fit the new layout */
+  --scale-factor: 1;
+}
+
+body {
+  background: #ffffff; /* Solid white background */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333; /* Neutral dark text */
+}
+
+#main-container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  min-height: 100vh; /* Ensure it takes the full viewport height */
+  padding: 20px;
+  text-align: center; /* Center text content */
+}
+
+.chart-title {
+  font-family: 'Verdana', sans-serif;
+  font-size: calc(28px * var(--scale-factor)); /* Scale title size */
+  text-align: center;
+  margin: 20px;
+  color: #2c3e50; /* Deep blue-gray */
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.slider-container {
+  width: calc(90% * var(--scale-factor)); /* Adjust width as needed */
+  margin: 20px auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the slider */
+}
+
+#chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#chart {
+  width: calc(960px * var(--scale-factor));
+  height: calc(500px * var(--scale-factor));
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional subtle shadow */
+}
+
+.tooltip {
+  position: absolute;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
+  pointer-events: none;
+  font-size: calc(12px * var(--scale-factor));
+}
+
+.parameter-value {
+  font-family: Arial, sans-serif;
+  margin-top: 10px;
+  font-size: calc(16px * var(--scale-factor));
+}
