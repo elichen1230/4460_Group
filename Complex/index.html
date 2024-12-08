@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TV Networks Graph</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="main-container">
+      <h1 class="chart-title">Complex TV Show</h1>
+      <div class="slider-container">
+        <div id="year-slider"></div>
+        <div id="year-range" class="parameter-value"></div>
+      </div>
+      <div id="chart-container">
+        <div id="chart"></div>
+        <div id="sub-container">
+          <div id="legend-container">
+            <div id="legend"></div>
+          </div>
+          <div id="info-box">
+            <p>Click on a bar to see details here.</p>
+          </div>
+        </div>
+        <div id="image-box"></div>
+      </div>
+      <select id="metricSelector">
+        <option value="vote_count">Vote Count</option>
+        <option value="popularity">Popularity</option>
+      </select>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

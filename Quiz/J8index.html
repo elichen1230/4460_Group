@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TV Shows Visualization</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="main-container">
+      <h1 class="chart-title">TV Shows Visualization</h1>
+      <div class="filters-container">
+        <div class="filters">
+          <div class="filter-row">
+            <div class="filter-group">
+              <label>Genre:</label>
+              <select id="genre-filter">
+                <option value="">All Genres</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Language:</label>
+              <select id="language-filter">
+                <option value="">All Languages</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-row">
+            <div class="filter-group">
+              <label>Episode Length (minutes):</label>
+              <div class="slider-container">
+                <div id="episode-slider"></div>
+                <div id="episode-range-display" class="parameter-value"></div>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <label>Number of Seasons:</label>
+              <div class="slider-container">
+                <div id="season-slider"></div>
+                <div id="season-range-display" class="parameter-value"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button id="random-show-btn">Get Random Show</button>
+      <div id="random-show-display"></div>
+      <div id="scatter-plot"></div>
+    </div>
+    <script src="J8.js"></script>
+  </body>
+</html>

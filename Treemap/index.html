@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Most Popular Networks Over Time</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://unpkg.com/d3-simple-slider"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="main-container">
+      <h1 class="chart-title">Most Popular Networks Over Time</h1>
+      <div class="slider-container">
+        <div id="year-slider"></div>
+      </div>
+      <div id="content-container">
+        <div id="bar-chart"></div>
+        <div id="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Network</th>
+                <th>Most Popular Genre</th>
+                <th>Most Popular Show</th>
+              </tr>
+            </thead>
+            <tbody id="table-body"></tbody>
+          </table>
+          <select id="metricSelector">
+            <option value="vote_count">Vote Count</option>
+            <option value="popularity">Popularity</option>
+          </select>
+          <!-- Reset Button -->
+          <button id="reset-button">
+            Reset to Networks
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
